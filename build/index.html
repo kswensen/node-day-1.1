@@ -12,6 +12,7 @@
         <h3>{{book.title}}</h3>
         <div ng-repeat="(key, value) in book">{{key}} : {{value}}</div>
         <div ng-hide="voted" ng-click="upvote(book);voted=true"> Upvote This Book </div>
+        <div ng-hide="voted" ng-click="downvote(book);voted=true"> Downvote This Book </div>
         <hr/>
       </div>
     </div>

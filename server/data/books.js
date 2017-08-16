@@ -17,5 +17,17 @@ module.exports = [
     votes:0,
     id:3
 
+  },
+  {
+    title: 'Lord of the Flies',
+    author: 'William Golding',
+    votes: 0,
+    id: 4
+  },
+  {
+    title: '1984',
+    author: 'George Orwell',
+    votes: 0,
+    id: 5
   }
 ]

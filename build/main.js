@@ -24,6 +24,12 @@ angular.module('books', [])
       });
     }
 
+    $scope.downvote = function(downvoteBook){
+      booksService.downvoteBook(downvoteBook).then(()=>{
+        downvoteBook.votes--;
+      });
+    }
+
     function getBooks(){
       booksService.getBooks().then((books)=>{
         $scope.books = books;
@@ -45,5 +51,8 @@ angular.module('books', [])
     }
     this.upvoteBook = function (upvoteBook){
       return $http.patch(`/api/books/${upvoteBook.id}/upvote`).then(response => response.data);
+    }
+    this.downvoteBook = function (downvoteBook){
+      return $http.patch(`/api/books/${downvoteBook.id}/downvote`).then(response => response.data);
     }
   })

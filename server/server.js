@@ -22,7 +22,8 @@ app.post('/api/books', (req, res)=>{
   if (!req.body.title){
     return res.status(400).send("All books must have a title");
   }
-  req.body.id = (books.length?books[books.length -1].id+1:1)
+  req.body.id = (books[books.length - 1]?books[books.length -1].id+1:1);
+  req.body.votes = 0;
   books.push(req.body);
   res.send(req.body);
 })
@@ -43,6 +44,8 @@ app.delete('/api/books/:id', (req, res)=>{
   let bookToDelete = books.find((book)=>book.id === req.params.id * 1);
   if (!bookToDelete){
     return res.status(404).send(`No book with id ${req.params.id} to delete`);
+  } else {
+    books.splice(books.indexOf(bookToDelete), 1);
   }
   res.send({
     message:`Deleteing book id ${req.params.id} (${bookToDelete.title})`,
@@ -57,6 +60,15 @@ app.patch('/api/books/:id/upvote', (req, res)=>{
   }
   bookToUpvote.votes +=1;
   res.send(`${bookToUpvote.title} now has ${bookToUpvote.votes} votes`);
+})
+
+app.patch('/api/books/:id/downvote', (req, res)=>{
+  let bookToDownvote = books.find((book)=>book.id === req.params.id * 1);
+  if (!bookToDownvote){
+    return res.status(404).send("No book by that ID to update");
+  }
+  bookToDownvote.votes -=1;
+  res.send(`${bookToDownvote.title} now has ${bookToDownvote.votes} votes`);
 })
 
 app.get('/*', (req, res)=>{
